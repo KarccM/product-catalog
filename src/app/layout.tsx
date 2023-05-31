@@ -1,7 +1,9 @@
 'use client';
-import GridContainer from "../components/Layouts/GridContainer";
-import Main from "../components/Layouts/Main";
-import Sidebar from "../components/Layouts/Sidebar";
+import {Grid} from "@/components/clientMui";
+import Main from "../components/layouts/main";
+import Sidebar from "../components/layouts/sidebar";
+import CssBaseline from '@mui/material/CssBaseline';
+import ThemeProvider from '@/context/theme/provider'
 
 
 export default function RootLayout({
@@ -10,14 +12,17 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
-      <body >
-        <GridContainer>
-          <Sidebar />
-          <Main>
-            {children}
-          </Main>
-        </GridContainer>
+    <html lang="en" suppressHydrationWarning={true} >
+      <body >        
+        <ThemeProvider>
+          <CssBaseline />
+          <Grid container>
+            <Sidebar />
+            <Main>
+              {children}
+            </Main>
+          </Grid>
+        </ThemeProvider>
         </body>
     </html>
   )

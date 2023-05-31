@@ -1,5 +1,5 @@
 'use clinet'
-import { Grid } from "@mui/material"
+import { Grid } from "@/components/clientMui"
 
 export default function Main({children}:any){
   return <Grid item md={10} xs={12} sx={{
