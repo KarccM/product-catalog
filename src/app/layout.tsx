@@ -5,7 +5,6 @@ import Sidebar from "../components/layouts/sidebar";
 import CssBaseline from '@mui/material/CssBaseline';
 import ThemeProvider from '@/context/theme/provider'
 
-
 export default function RootLayout({
   children,
 }: {
@@ -19,7 +18,7 @@ export default function RootLayout({
           <Grid container>
             <Sidebar />
             <Main>
-              {children}
+                {children}
             </Main>
           </Grid>
         </ThemeProvider>

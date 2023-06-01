@@ -1,3 +1,3 @@
 'use client'
 
-export {Grid, Stack, Typography} from '@mui/material';
+export {Grid, Stack, Typography, Box, CircularProgress} from '@mui/material';
