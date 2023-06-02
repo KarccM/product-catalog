@@ -10,6 +10,7 @@ async function getProducts(){
 export default async function Products(){
   const products: Product[] = await getProducts();
   return (
+    <>
       <Grid container spacing={3} justifyContent={'center'}>
         {products.map((product:Product) => (
           <Grid item xs={12} sm={6} lg={3}  key={product.id} margin={2} >
@@ -17,5 +18,6 @@ export default async function Products(){
           </Grid>
         ))}
       </Grid>
+    </>
     )
 }

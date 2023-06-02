@@ -1,32 +1,22 @@
 "use client"
 import React from 'react';
 
-const useInfinteScrollClientSideData = (data:any, size:undefined|number) => {
+const useInfinteScrollClientSideData = (data:any, size:undefined|number, index:number) => {
 
-  
-  const [page, _] = React.useState<any>(data);
-  const [index, setIndex] = React.useState<number>(0);
+  const fullData = data;
   const [pageSize, setPageSize] = React.useState<number>(size ?? 10);
-  const [totalDataLength, __] = React.useState<number>(data.length ?? 0);
-  const [hasmore, setHasmore] = React.useState<boolean>(false);
-  const [start, setStart] = React.useState<number>(0);
-  const [end, setEnd] = React.useState<number>(data.length ?? 0);
+  const [totalDataLength, _] = React.useState<number>(data?.length ?? 0);
+  const [hasmore, setHasmore] = React.useState<boolean>(true);
+  const [page, setPage] = React.useState<any>(fullData.slice(0,size));
   
   function nextPage(): void
   {
-    setIndex(prev => ++prev);
-    setStart(index*pageSize);
-    setEnd(calculateEnd());
-    setHasmore(checkIfHasMore());
+    let start = index*pageSize
+    let end = calculateEnd() 
+    setHasmore(checkIfHasMore(end));
+    setPage((prev:any) => [...prev,...fullData.slice(start,end)])
   }
-  function prevPage(): void
-  {
-    setIndex(prev => --prev);
-    setStart(index*pageSize);
-    setEnd(calculateEnd());
-    setHasmore(checkIfHasMore());
-  }
-  function checkIfHasMore(): boolean
+  function checkIfHasMore(end:number): boolean
   {
     return totalDataLength > end;
   }
@@ -35,24 +25,11 @@ const useInfinteScrollClientSideData = (data:any, size:undefined|number) => {
     return (index*pageSize + pageSize) > totalDataLength ? totalDataLength: (index*pageSize + pageSize)
   }
 
-  function log():void
-  {
-    console.log('page', page);
-    console.log('index', index);
-    console.log('pageSize', pageSize);
-    console.log('totalDataLength', totalDataLength);
-    console.log('hasmore', hasmore);
-    console.log('start', start);
-    console.log('end', end);
-  }
-
   return {
     nextPage,
-    prevPage,
     setPageSize,
-    data: page.slice(start, end),
+    data: page,
     hasmore,
-    log,
     checkIfHasMore,
   }
 
